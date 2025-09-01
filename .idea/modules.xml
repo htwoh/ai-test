@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/embedding/embedding.iml" filepath="$PROJECT_DIR$/embedding/embedding.iml" />
+      <module fileurl="file://$PROJECT_DIR$/llm/llm.iml" filepath="$PROJECT_DIR$/llm/llm.iml" />
+    </modules>
+  </component>
+</project>

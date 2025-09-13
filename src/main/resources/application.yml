@@ -1,0 +1,21 @@
+# application.yml
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://htwoh:VZMyn6LskVQqvyFZ@aitest.0bviryy.mongodb.net/?retryWrites=true&w=majority
+      database: aitest
+  ai:
+    vectorstore:
+      mongodb:
+        initialize-schema: false
+        collection-name: embed
+        index-name: idx_vector
+        path-name: embedding
+
+logging:
+  level:
+    root: debug
+    org:
+      mongodb:
+        driver:
+          cluster: false

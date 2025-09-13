@@ -1,0 +1,2 @@
+### GET request to example server
+GET http://localhost:8080/api/qa?q="다음 요청을 한국어, 영어, 일본어로 각각 소개문을 만들어줘. 반드시 JSON 형식으로 응답해.\n\n요청: 여름 휴가를 위한 여행 상품을 소개해줘\n\n응답 형식:\n{\n  \"ko\": \"...\",\n  \"en\": \"...\",\n  \"ja\": \"...\"\n}"

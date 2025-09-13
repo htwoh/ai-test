@@ -1,0 +1,43 @@
+version: "3.8"
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    ports:
+      - "11434:11434"
+    environment:
+      - OLLAMA_HOST=0.0.0.0:11434
+    volumes:
+      - ollama-data:/root/.ollama   # 모델 캐시를 영속화
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:11434/api/version"]
+      interval: 5s
+      timeout: 2s
+      retries: 30
+
+  ollama-init:
+    image: curlimages/curl:8.7.1
+    depends_on:
+      ollama:
+        condition: service_healthy
+    entrypoint:
+      - sh
+      - -lc
+      - |
+        set -e
+        # 이미 존재하는지 확인 후 없을 때만 pull
+        has_model() { curl -s http://ollama:11434/api/tags | grep -q "\"name\":\"$1\""; }
+        # 필요한 모델만 나열하세요. (예: 임베딩 전용)
+        for m in "qllama/multilingual-e5-base"; do
+          if has_model "$m"; then
+            echo "Model $m already present. Skipping."
+          else
+            echo "Pulling $m..."
+            curl -s -X POST http://ollama:11434/api/pull -d "{\"name\":\"$m\"}"
+          fi
+        done
+        echo "Init done."
+    restart: "no"
+
+volumes:
+  ollama-data:
